@@ -51,18 +51,21 @@ Route::get('/add_user_type', function(){
     return view('UserType/add_user_type');
 });
 
-Route::get('/user_rights/{id}', function($id){
-    return view('UserType/user_rights');
+Route::get('/user_type/update/{id}', function($id){
+    return view('UserType/update_user_type',['id' => $id]);
 });
 
-Route::get('/user_rights/{id}', 'RightsController@userRights');
+Route::get('/user_type', 'UserTypeController@getUserTypes');
 
-Route::get('/user_type', 'UserTypeController@GetUserType');
+Route::get('/user_type/update/{id}', 'UserTypeController@getUserTypeUpdate');
+
+Route::get('/user_type/{id}', 'UserTypeController@deleteUserType');
+
+Route::get('/view_user_type/{id}', 'UserTypeController@getUserType');
 
 Route::post('/addUserType', 'UserTypeController@addUserType');
 
-
-
+Route::post('/updateUser/{id}','UserTypeController@updateUserType');
 //End Uer Type
 
 //Branch Module
@@ -75,16 +78,39 @@ Route::get('/add_branch', function(){
     return view('Branch/branch_entry');
 });
 
-Route::get('/branch', 'BranchController@getBranches');
+Route::get('/view_branch/{id}', function(){
+    return view('Branch/view_branch');
+});
 
-Route::post('branchCode', 'BranchController@BranchCode');
+Route::get('/branch/update/{id}', function(){
+    return view('Branch/branch_update');
+});
+
+Route::get('/view_branch/{id}', 'BranchController@getBranchById');
+
+Route::get('/branch','BranchController@getBranches');
+
+Route::get('/branch/{id}','BranchController@deleteBranch');
+
+Route::get('/branch/update/{id}', 'BranchController@GetBranchDetails');
 
 Route::post('/addBranch', 'BranchController@addBranch');
 
-//
-Route::get('/tax', function(){
-   return view('Tax/tax');
+Route::post('/updateBranch/{id}', 'BranchController@updateBranch');
+
+//Security Policy
+Route::get('/add_security_policy', function(){
+    return view('Security/add_security_policy');
 });
+
+Route::get('/security_policy', 'SecurityController@checkSecurityPolicy');
+
+Route::get('/security_policy', 'SecurityController@getSecurityPolicy');
+
+Route::post('/addSecurity', 'SecurityController@addSecurity');
+
+Route::post('/updateSecurity/{id}', 'SecurityController@updateSecurity');
+//
 
 Auth::routes();
 

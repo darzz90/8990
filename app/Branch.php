@@ -5,9 +5,10 @@ namespace App;
 use Illuminate\Database\Eloquent\Model;
 
 class Branch extends Model{
-    protected $table = "tbl_000_branches";
+    protected $table = "tbl_000_branch";
     public $timestamps = false;
     protected $fillable = [
-        'branch_code','branch_address','branch_city','branch_province'
+        'BranchCode','BranchName','AddressLine1','AddressLine2','ContactPerson','TelNo','FaxNo',
+        'CellNo','Email','IsActive','CreatedBy','CreatedDate','UpdatedBy','UpdatedDate'
     ];
 }

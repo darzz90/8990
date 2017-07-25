@@ -3,39 +3,58 @@
 @section('content')
     <div class="container">
         <div class="row">
-            <div class="col-md-10 col-md-offset-1">
+            <div class="col-md-12">
+                <h4>List of Branches</h4>
                 <div class="panel panel-dark">
                     <div class="panel-heading">Branch</div>
-
                     <div class="panel-body">
                         <div>
-                            <div class="pull-left"><h4><span class="glyphicon glyphicon-list-alt"></span>&nbsp;Branch List</h4></div>
+                            <div class="pull-left">
+                                <a href="{{ url('add_branch') }}" class="btn btn-success"><b class="glyphicon glyphicon-plus"></b>&nbsp;Add New Branch</a>
+                            </div>
                             <div class="pull-right">
-                                <a href="add_branch" class="btn btn-dark">Add New Branch</a>
+                                <a href="{{ url('/') }}" class="btn btn-dark"><b class="glyphicon glyphicon-arrow-left"></b>&nbsp;Back</a>
                             </div>
                         </div>
+                        <br>
                         <div class="row">
                             <div class="col-md-12">
+                                <div class="row">
+                                    <div class="col-md-5" style="margin-top: 5px;">
+                                        @if(Session::has('message'))
+                                            <div class="alert alert-dismissible alert-success">
+                                                <button type="button" class="close" data-dismiss="alert">&times;</button>
+                                                {{ Session::get('message') }}
+                                            </div>
+                                        @endif
+                                    </div>
+                                </div>
                                 <table class="table table-bordered table-responsive table-striped" id="dataTable" >
                                     <thead>
                                         <tr>
-                                            <td>Branch Code</td>
-                                            <td>Branch Address</td>
-                                            <td>Branch City</td>
-                                            <td>Branch Province</td>
+                                            <td>Code</td>
+                                            <td>Branch Name</td>
+                                            <td>Address</td>
+                                            <td>Contact</td>
+                                            <td>Phone No.</td>
+                                            <td>Mobile No.</td>
+                                            <td>Email Address</td>
                                             <td>Action</td>
                                         </tr>
                                     </thead>
                                     <tbody>
                                         @foreach($branches as $object)
                                             <tr>
-                                                <td>{{ $object->branch_code }}</td>
-                                                <td>{{ $object->branch_address }}</td>
-                                                <td>{{ $object->branch_city }}</td>
-                                                <td>{{ $object->branch_province }}</td>
+                                                <td>{{ $object->BranchCode }}</td>
+                                                <td>{{ $object->BranchName }}</td>
+                                                <td>{{ $object->AddressLine1 }}</td>
+                                                <td>{{ $object->ContactPerson }}</td>
+                                                <td>{{ $object->TelNo }}</td>
+                                                <td>{{ $object->CellNo }}</td>
+                                                <td>{{ $object->Email }}</td>
                                                 <td>
-                                                    <a href="" class="btn btn-danger"><span class="glyphicon glyphicon-remove"></span>&nbsp;Remove</a>
-                                                    <a href="" class="btn btn-warning" style="width: 38%;"><span class="glyphicon glyphicon-edit"></span>&nbsp;Edit</a>
+                                                    <a href="{{ url('view_branch') }}/{{ $object->id }}" class="btn btn-primary"><b class="glyphicon glyphicon-eye-open"></b>&nbsp;View</a>
+                                                    <a href="{{ url('branch') }}/{{ $object->id }}" class="btn btn-danger"><b class="glyphicon glyphicon-remove"></b>&nbsp;Delete</a>
                                                 </td>
                                             </tr>
                                         @endforeach

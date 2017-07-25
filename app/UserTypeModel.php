@@ -6,9 +6,9 @@ use Illuminate\Database\Eloquent\Model;
 
 class UserTypeModel extends Model{
 
-    protected $table = "tbl_000_usertype";
+    protected $table = "mgr_usertypes";
     public $timestamps = false;
     protected $fillable = [
-        'group_description','IsActive','IsAdmin'
+        'utyCode','utyDesc','isOfficer','CreatedBy','CreatedDate','UpdatedBy','UpdatedDate'
     ];
 }

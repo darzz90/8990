@@ -48,11 +48,38 @@
                 </a>
             </div>
                 <div class="collapse navbar-collapse" id="app-navbar-collapse">
+                    <ul class="nav navbar-nav">
+                        <li class="dropdown">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown"><b class="glyphicon glyphicon-tower"></b>&nbsp;Parameters <b class="caret"></b></a>
+                            <ul class="dropdown-menu">
+                                <li class="dropdown dropdown-submenu"><a href="#" class="dropdown-toggle" data-toggle="dropdown"><b class="glyphicon glyphicon-home"></b>&nbsp;Branch</a>
+                                    <ul class="dropdown-menu">
+                                        <li><a href="{{ url('branch') }}">Set-Up Branch</a></li>
+                                        <li><a href="{{ url('branch') }}"><b class="glyphicon glyphicon-home"></b>&nbsp;Branches</a></li>
+                                    </ul>
+                                </li>
+                                <li class="dropdown dropdown-submenu"><a href="#" class="dropdown-toggle" data-toggle="dropdown"><b class="glyphicon glyphicon-user"></b>&nbsp;User</a>
+                                    <ul class="dropdown-menu">
+                                        <li><a href="{{ url('user_type') }}"><b class="glyphicon glyphicon-file"></b>&nbsp;Set-Up User Type</a></li>
+                                        <li><a href="#"><b class="glyphicon glyphicon-user"></b>&nbsp;Set-Up Users</a></li>
+                                    </ul>
+                                </li>
+                            </ul>
+                        </li>
+                        <li class="dropdown">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown"><b class="glyphicon glyphicon-dashboard"></b>&nbsp;Administrator User <b class="caret"></b></a>
+                            <ul class="dropdown-menu">
+                                <li>
+                                    <a href="{{ url('security_policy') }}" ><b class="glyphicon glyphicon-lock"></b>&nbsp;Set-Up Security Policy</a>
+                                </li>
+                            </ul>
+                        </li>
+                    </ul>
                     <!-- Right Side Of Navbar -->
                     <ul class="nav navbar-nav navbar-right">
-                        <!-- Authentication Links -->
                         @if (Auth::guest())
                         @else
+
                             <li class="dropdown">
                                 <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
                                         <span style="color:white;" class="glyphicon glyphicon-user"></span>&nbsp;
