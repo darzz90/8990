@@ -1,6 +1,6 @@
 /*
 SQLyog Ultimate - MySQL GUI v8.2 
-MySQL - 5.5.53 : Database - 8990_loans_2017
+MySQL - 5.5.5-10.1.25-MariaDB : Database - 8990_loans_2017
 *********************************************************************
 */
 
@@ -16,48 +16,78 @@ CREATE DATABASE /*!32312 IF NOT EXISTS*/`8990_loans_2017` /*!40100 DEFAULT CHARA
 
 USE `8990_loans_2017`;
 
-/*Table structure for table `tbl_000_branchcode` */
+/*Table structure for table `mgr_securitypolicies` */
 
-DROP TABLE IF EXISTS `tbl_000_branchcode`;
+DROP TABLE IF EXISTS `mgr_securitypolicies`;
 
-CREATE TABLE `tbl_000_branchcode` (
-  `branch_code` int(11) NOT NULL,
-  PRIMARY KEY (`branch_code`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+CREATE TABLE `mgr_securitypolicies` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `passwordLength` int(11) DEFAULT NULL,
+  `passwordDigit` int(11) DEFAULT NULL,
+  `passwordSpecial` int(11) DEFAULT NULL,
+  `ispasswordreuse` tinyint(1) DEFAULT NULL,
+  `passwordChangeFreq` int(11) DEFAULT NULL,
+  `loginAttempts` int(11) DEFAULT NULL,
+  `sessionTimeout` int(11) DEFAULT NULL,
+  `createdBy` varchar(255) DEFAULT NULL,
+  `createdDate` datetime DEFAULT NULL,
+  `updatedBy` varchar(255) DEFAULT NULL,
+  `updatedDate` datetime DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=latin1;
 
-/*Data for the table `tbl_000_branchcode` */
+/*Data for the table `mgr_securitypolicies` */
 
-/*Table structure for table `tbl_000_branches` */
+insert  into `mgr_securitypolicies`(`id`,`passwordLength`,`passwordDigit`,`passwordSpecial`,`ispasswordreuse`,`passwordChangeFreq`,`loginAttempts`,`sessionTimeout`,`createdBy`,`createdDate`,`updatedBy`,`updatedDate`) values (5,8,2,1,1,30,5,30,'sa','2017-07-25 05:45:07','sa','2017-07-25 07:36:52');
 
-DROP TABLE IF EXISTS `tbl_000_branches`;
+/*Table structure for table `mgr_usertypes` */
 
-CREATE TABLE `tbl_000_branches` (
-  `branch_id` int(11) NOT NULL AUTO_INCREMENT,
-  `branch_code` varchar(20) NOT NULL,
-  `branch_address` varchar(255) NOT NULL,
-  `branch_province` varchar(100) NOT NULL,
-  `branch_city` varchar(100) NOT NULL,
-  PRIMARY KEY (`branch_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=latin1;
+DROP TABLE IF EXISTS `mgr_usertypes`;
 
-/*Data for the table `tbl_000_branches` */
+CREATE TABLE `mgr_usertypes` (
+  `id` bigint(50) NOT NULL AUTO_INCREMENT,
+  `utyCode` varchar(50) NOT NULL,
+  `utyDesc` varchar(255) DEFAULT NULL,
+  `isOfficer` tinyint(1) DEFAULT NULL,
+  `CreatedBy` varchar(255) DEFAULT NULL,
+  `CreatedDate` datetime DEFAULT NULL,
+  `UpdatedBy` varchar(255) DEFAULT NULL,
+  `UpdatedDate` datetime DEFAULT NULL,
+  PRIMARY KEY (`id`,`utyCode`),
+  UNIQUE KEY `id` (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=latin1;
 
-insert  into `tbl_000_branches`(`branch_id`,`branch_code`,`branch_address`,`branch_province`,`branch_city`) values (1,'BRANCH - 17 - 0001','subangdako','cebu','mandaue city'),(2,'BRANCH - 17 - 0002','magallanes street','cebu','cebu city'),(3,'BRANCH - 17 - 0003','barangay tibay marcos street','valenzuela','valenzuela city');
+/*Data for the table `mgr_usertypes` */
 
-/*Table structure for table `tbl_000_userrights` */
+insert  into `mgr_usertypes`(`id`,`utyCode`,`utyDesc`,`isOfficer`,`CreatedBy`,`CreatedDate`,`UpdatedBy`,`UpdatedDate`) values (6,'AC','Accounting',0,'sa','2017-07-25 07:20:18','sa','2017-07-25 07:35:13'),(8,'SysAdmin','systsem administrator',1,'sa','2017-07-25 07:20:40',NULL,NULL);
 
-DROP TABLE IF EXISTS `tbl_000_userrights`;
+/*Table structure for table `tbl_000_branch` */
 
-CREATE TABLE `tbl_000_userrights` (
-  `rights_id` int(11) NOT NULL AUTO_INCREMENT,
-  `fk_user_id` int(11) NOT NULL,
-  `fk_menu_id` int(11) NOT NULL,
-  PRIMARY KEY (`rights_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=latin1;
+DROP TABLE IF EXISTS `tbl_000_branch`;
 
-/*Data for the table `tbl_000_userrights` */
+CREATE TABLE `tbl_000_branch` (
+  `id` bigint(20) NOT NULL AUTO_INCREMENT,
+  `BranchCode` varchar(50) NOT NULL,
+  `BranchName` varchar(255) DEFAULT NULL,
+  `AddressLine1` varchar(255) DEFAULT NULL,
+  `AddressLine2` varchar(255) DEFAULT NULL,
+  `ContactPerson` varchar(255) DEFAULT NULL,
+  `TelNo` varchar(255) DEFAULT NULL,
+  `FaxNo` varchar(255) DEFAULT NULL,
+  `CellNo` varchar(255) DEFAULT NULL,
+  `Email` varchar(255) DEFAULT NULL,
+  `IsActive` tinyint(1) DEFAULT NULL,
+  `CreatedBy` varchar(255) DEFAULT NULL,
+  `CreatedDate` datetime DEFAULT NULL,
+  `UpdatedBy` varchar(255) DEFAULT NULL,
+  `UpdatedDate` datetime DEFAULT NULL,
+  PRIMARY KEY (`id`,`BranchCode`),
+  UNIQUE KEY `id` (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=latin1;
 
-insert  into `tbl_000_userrights`(`rights_id`,`fk_user_id`,`fk_menu_id`) values (1,1,1),(2,1,2),(3,1,3),(4,1,4);
+/*Data for the table `tbl_000_branch` */
+
+insert  into `tbl_000_branch`(`id`,`BranchCode`,`BranchName`,`AddressLine1`,`AddressLine2`,`ContactPerson`,`TelNo`,`FaxNo`,`CellNo`,`Email`,`IsActive`,`CreatedBy`,`CreatedDate`,`UpdatedBy`,`UpdatedDate`) values (8,'CBU','Cebu Branch',NULL,NULL,NULL,'9209748581',NULL,'9173263322',NULL,NULL,'sa','2017-07-25 07:31:13',NULL,NULL),(9,'DVO','Davao Branch',NULL,NULL,NULL,'9209748581',NULL,'9173263322',NULL,NULL,'sa','2017-07-25 07:31:27',NULL,NULL);
 
 /*Table structure for table `tbl_000_users` */
 
@@ -80,23 +110,6 @@ CREATE TABLE `tbl_000_users` (
 /*Data for the table `tbl_000_users` */
 
 insert  into `tbl_000_users`(`id`,`name`,`username`,`password`,`remember_token`,`IsActive`,`user_type_id`,`branch_code`,`created_at`,`updated_at`) values (1,'administrator','sa','$2y$10$5zt8VertYlDpirqDCNGzQud5RNBpIi.NLgAbYDefpkM5vfJS4kPoa','is6zuL0HdbExkrw77CbdhNdpMpq6OTIZjS0IPMIAEDAc2D5ryDSsyBVn5SH3',1,4,'0','2017-07-19 09:00:10','2017-07-20 04:36:09'),(2,'eduardo morales','eduxd','$2y$10$bRmMJ2pVk6eM7cJVV/0.eeS3J3cmo/F5jT2haXr5GBOQwMMaZz92S',NULL,1,5,'BRANCH - 17 - 0002','2017-07-22 03:06:12','2017-07-22 03:06:12'),(3,'system administrator','admin','$2y$10$L5X4/GpssJ7jk/aeyzeFa.MnYTVuqxAcERV/92Vyz6ZB6vsWz.PGq','PDVot2O7wYzAORoUE1rdrZNyVShWYTqEoQjOqAqrjcvPZZhv5VCOs4bZmMGu',1,2,'BRANCH - 17 - 0001','2017-07-22 11:20:12','2017-07-22 13:03:17');
-
-/*Table structure for table `tbl_000_usertype` */
-
-DROP TABLE IF EXISTS `tbl_000_usertype`;
-
-CREATE TABLE `tbl_000_usertype` (
-  `user_type_id` int(11) NOT NULL AUTO_INCREMENT,
-  `user_type_description` varchar(255) NOT NULL,
-  `IsActive` int(11) DEFAULT NULL,
-  `created_date` datetime DEFAULT NULL,
-  `updated_date` datetime DEFAULT NULL,
-  PRIMARY KEY (`user_type_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=latin1 ROW_FORMAT=COMPACT;
-
-/*Data for the table `tbl_000_usertype` */
-
-insert  into `tbl_000_usertype`(`user_type_id`,`user_type_description`,`IsActive`,`created_date`,`updated_date`) values (1,'Sales',1,'2017-07-20 04:48:25',NULL),(2,'Administration',1,'2017-07-20 05:15:26',NULL),(3,'Accounting',1,'2017-07-20 05:16:52',NULL),(4,'Systsem Administrator',1,'2017-07-20 05:39:23',NULL),(5,'Cashier',1,'2017-07-20 07:38:34',NULL),(6,'Accounting - Head',1,'2017-07-20 07:39:37',NULL),(7,'Manager',1,'2017-07-20 07:40:05',NULL),(8,'taken out approver',1,'2017-07-21 10:03:28',NULL);
 
 /*Table structure for table `tbl_menuitem` */
 
