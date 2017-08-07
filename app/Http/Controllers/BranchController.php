@@ -9,6 +9,10 @@ use App\Branch;
 
 class BranchController extends Controller
 {
+    public function __construct(){
+        $this->middleware('menu');
+    }
+
     public function addBranch(Request $request){
         $branch = new Branch;
         $this->validate($request,[

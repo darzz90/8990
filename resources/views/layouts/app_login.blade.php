@@ -50,6 +50,9 @@
     </nav>
     @yield('content')
 </div>
-<script src="{{ asset('js/app.js') }}"></script>
+<footer class="container-fluid bg-4 text-center">
+  <p>Account Receivable Powered by <a href="https://www.bpsolutions.biz/">www.bpsolutions.biz/</a></p> 
+</footer>
 </body>
+<script src="{{ asset('js/app.js') }}"></script>
 </html>

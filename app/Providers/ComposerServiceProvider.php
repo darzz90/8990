@@ -20,6 +20,7 @@ class ComposerServiceProvider extends ServiceProvider
             $view->with('users', $users->id);
         });
     }
+
     /**
      * Register the application services.
      *

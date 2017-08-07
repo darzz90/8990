@@ -16,10 +16,12 @@ class User extends Authenticatable
      */
     protected $table = "tbl_000_users";
     protected $fillable = [
-         'name','username', 'password','fullname','remember_token','IsActive','user_type_id','branch_code','created_at','updated_at'
+         'name','username', 'password','fname','mname','lname','addressline1','addressline2','telNo','cellNo','email',
+         'remember_token','IsActive','usertype_id','created_at','updated_at'
     ];
 
     protected $hidden = [
         'password', 'remember_token',
     ];
+
 }

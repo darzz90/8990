@@ -70,7 +70,7 @@ Route::post('/updateUser/{id}','UserTypeController@updateUserType');
 
 //Branch Module
 
-Route::get('/branch', function(){
+Route::get('branch', function(){
    return view('Branch/branch');
 });
 

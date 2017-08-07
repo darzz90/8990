@@ -124,6 +124,7 @@ return [
 
     'log_level' => env('APP_LOG_LEVEL', 'debug'),
 
+
     /*
     |--------------------------------------------------------------------------
     | Autoloaded Service Providers
@@ -177,6 +178,13 @@ return [
         App\Providers\EventServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
         App\Providers\ComposerServiceProvider::class,
+
+
+        /**
+            Menu service providers...
+            Added by dariel 20170803
+        */
+        
     ],
 
     /*

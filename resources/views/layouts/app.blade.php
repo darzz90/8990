@@ -15,8 +15,6 @@
     <link href="{{ asset('css/yeti_bootstrap.css') }}" rel="stylesheet">
     <link href="{{ asset('css/style.css') }}" rel="stylesheet">
     <link href="{{ asset('css/dataTables.css') }}" rel="stylesheet">
-    <script src="{{ asset('js/jquery-3.2.1.min.js') }}"></script>
-
 <style>
     .navbar-brand {
   padding: 0px;
@@ -25,7 +23,15 @@
   height: 100%;
   padding: 10px;
   width: auto;
+}
+    .dropdown-submenu {
+    position: relative;
+}
 
+.dropdown-submenu .dropdown-menu {
+    top: 0;
+    left: 100%;
+    margin-top: -1px;
 }
 </style>
 
@@ -47,34 +53,50 @@
                     <img src="{{ asset('images/logo-final.png')}}" class="pull-left">
                 </a>
             </div>
-                <div class="collapse navbar-collapse" id="app-navbar-collapse">
+            <div class="collapse navbar-collapse" id="app-navbar-collapse">
+                @if (Auth::guest())
+                    @else
+                    @foreach ($menus as $menu)
                     <ul class="nav navbar-nav">
-                        <li class="dropdown">
-                            <a href="#" class="dropdown-toggle" data-toggle="dropdown"><b class="glyphicon glyphicon-tower"></b>&nbsp;Parameters <b class="caret"></b></a>
-                            <ul class="dropdown-menu">
-                                <li class="dropdown dropdown-submenu"><a href="#" class="dropdown-toggle" data-toggle="dropdown"><b class="glyphicon glyphicon-home"></b>&nbsp;Branch</a>
-                                    <ul class="dropdown-menu">
-                                        <li><a href="{{ url('branch') }}">Set-Up Branch</a></li>
-                                        <li><a href="{{ url('branch') }}"><b class="glyphicon glyphicon-home"></b>&nbsp;Branches</a></li>
-                                    </ul>
-                                </li>
-                                <li class="dropdown dropdown-submenu"><a href="#" class="dropdown-toggle" data-toggle="dropdown"><b class="glyphicon glyphicon-user"></b>&nbsp;User</a>
-                                    <ul class="dropdown-menu">
-                                        <li><a href="{{ url('user_type') }}"><b class="glyphicon glyphicon-file"></b>&nbsp;Set-Up User Type</a></li>
-                                        <li><a href="#"><b class="glyphicon glyphicon-user"></b>&nbsp;Set-Up Users</a></li>
-                                    </ul>
-                                </li>
-                            </ul>
-                        </li>
-                        <li class="dropdown">
-                            <a href="#" class="dropdown-toggle" data-toggle="dropdown"><b class="glyphicon glyphicon-dashboard"></b>&nbsp;Administrator User <b class="caret"></b></a>
-                            <ul class="dropdown-menu">
-                                <li>
-                                    <a href="{{ url('security_policy') }}" ><b class="glyphicon glyphicon-lock"></b>&nbsp;Set-Up Security Policy</a>
-                                </li>
-                            </ul>
-                        </li>
+                     <li class="dropdown">
+                         <a class="dropdown-toggle" data-toggle="dropdown" href="#">{{$menu->menu_name}}<span class="caret"></span></a>
+                         <ul class="dropdown-menu">
+                                @foreach ($subs as $sub)
+                                    @if ($sub->menu_name==$menu->menu_name)
+                                        @if ($sub->isNewmn == 1)
+                                            <li class="dropdown-submenu">
+                                                <a class="dropdown-toggle" data-toggle="dropdown" 
+                                                href="{{$sub->submenu_url}}">{{$sub->submenu_name}}</a>
+                                                <ul class="dropdown-menu">
+                                                    @foreach($subs as $sub1)
+                                                        @if($sub1->submenu_parent == $sub->submenu_id && $sub1->isNewmn_sub == 1)
+                                                            <li class="dropdown-submenu">
+                                                            <a class="dropdown-toggle" data-toggle="dropdown" href="{{$sub1->submenu_url}}">
+                                                            {{$sub1->submenu_name}}</a>
+                                                            <ul class="dropdown-menu">
+                                                                @foreach($subs as $sub2)
+                                                                    @if($sub2->submenu_parent == $sub1->submenu_id)
+                                                                        <li><a href="{{$sub2->submenu_url}}">{{$sub2->submenu_name}}</a></li>
+                                                                    @endif
+                                                                @endforeach
+                                                            </ul>
+                                                            </li>
+                                                        @elseif($sub1->submenu_parent == $sub->submenu_id)
+                                                            <li><a href="{{$sub1->submenu_url}}">{{$sub1->submenu_name}}</a></li>
+                                                        @endif
+                                                    @endforeach
+                                                </ul>
+                                            </li>
+                                        @elseif ($sub->submenu_parent == 0)
+                                        <li><a href="{{$sub->submenu_url}}">{{$sub->submenu_name}}</a></li>
+                                        @endif
+                                    @endif
+                                @endforeach
+                        </ul>
+                     </li>
                     </ul>
+                    @endforeach
+                @endif
                     <!-- Right Side Of Navbar -->
                     <ul class="nav navbar-nav navbar-right">
                         @if (Auth::guest())
@@ -84,7 +106,7 @@
                                 <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
                                         <span style="color:white;" class="glyphicon glyphicon-user"></span>&nbsp;
                                     Hello&nbsp;
-                                    {{ ucwords(Auth::user()->name) }} <span class="caret"></span>
+                                    {{ ucwords(Auth::user()->fname) }} <span class="caret"></span>
                                 </a>
 
                                 <ul class="dropdown-menu" role="menu">
@@ -93,6 +115,9 @@
                                     </li>
                                     <li>
                                         <a href="{{ url('account') }}"><span style="color:white;" class="glyphicon glyphicon-user"></span>&nbsp;&nbsp;My Account</a>
+                                    </li>
+                                    <li>
+                                        <a href="#"><span style="color:white;" class="glyphicon glyphicon-cog"></span>&nbsp;&nbsp;My Branch</a>
                                     </li>
                                     <li>
                                         <a href="{{ route('logout') }}"
@@ -111,15 +136,18 @@
                 </div>
             </div>
         </nav>
-
         @yield('content')
-    </div>
+    </div>  
+
+    <footer class="container-fluid bg-4 text-center">
+    <p>Account Receivable v2016.08.06</p> 
+    </footer>
 
     <!-- Scripts -->
     <script src="{{ asset('js/app.js') }}"></script>
     <script src="{{ asset('js/dataTables.js') }}"></script>
     <script>
-        $(document).ready(function(){
+$(document).ready(function(){
             $('ul.dropdown-menu [data-toggle=dropdown]').on('click', function(event) {
                 event.preventDefault();
                 event.stopPropagation();
@@ -129,5 +157,6 @@
         });
     </script>
     <script src="{{ asset('js/branch.js') }}"></script>
+    <script src="{{ asset('js/jquery-3.2.1.min.js') }}"></script>
 </body>
 </html>

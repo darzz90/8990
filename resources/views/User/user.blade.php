@@ -60,15 +60,6 @@
                                                 </td>
                                             </tr>
                                         @endforeach
-                                        <tr>
-                                            <td>eduardo</td>
-                                            <td>System Admin</td>
-                                            <td><span class="text-info text-success">Active</span></td>
-                                            <td>
-                                                <a href="" class="btn btn-danger" style="padding: 3px 7px;"><span class="glyphicon glyphicon-remove"></span>&nbsp;Remove</a>
-                                                <a href="" class="btn btn-warning" style="padding: 3px 7px;width: 23%;"><span class="glyphicon glyphicon-edit"></span>&nbsp;Edit</a>
-                                            </td>
-                                        </tr>
                                     </tbody>
                                 </table>
                             </div>

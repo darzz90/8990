@@ -8,6 +8,10 @@ use Carbon\Carbon;
 
 class UserTypeController extends Controller{
 
+    public function __construct(){
+        $this->middleware('menu');
+    }
+
     public function addUserType(Request $request){
 
         $this->validate($request,[
